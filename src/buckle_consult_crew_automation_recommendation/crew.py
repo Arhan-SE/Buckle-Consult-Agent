@@ -1,7 +1,7 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import ScrapeWebsiteTool
-from crewai_tools import PDFSearchTool
+from crewai_tools import PDFSearchTool, SerperDevTool
 
 @CrewBase
 class BuckleConsultCrewAutomationRecommendationCrew():
@@ -11,21 +11,21 @@ class BuckleConsultCrewAutomationRecommendationCrew():
     def DiscoveryAgent(self) -> Agent:
         return Agent(
             config=self.agents_config['DiscoveryAgent'],
-            tools=[ScrapeWebsiteTool(), PDFSearchTool()],
+            tools=[ScrapeWebsiteTool(), PDFSearchTool(), SerperDevTool()],
         )
 
     @agent
     def AnalysisAgent(self) -> Agent:
         return Agent(
             config=self.agents_config['AnalysisAgent'],
-            tools=[],
+            tools=[PDFSearchTool(), SerperDevTool(), ScrapeWebsiteTool()],
         )
 
     @agent
     def RecommendationAgent(self) -> Agent:
         return Agent(
             config=self.agents_config['RecommendationAgent'],
-            tools=[],
+            tools=[PDFSearchTool("solutions.pdf"), SerperDevTool(), ScrapeWebsiteTool()],
         )
 
 
@@ -33,14 +33,14 @@ class BuckleConsultCrewAutomationRecommendationCrew():
     def discovery_task(self) -> Task:
         return Task(
             config=self.tasks_config['discovery_task'],
-            tools=[ScrapeWebsiteTool(), PDFSearchTool()],
+            tools=[PDFSearchTool("solutions.pdf"), SerperDevTool(), ScrapeWebsiteTool()],
         )
 
     @task
     def analysis_task(self) -> Task:
         return Task(
             config=self.tasks_config['analysis_task'],
-            tools=[ScrapeWebsiteTool(), PDFSearchTool()],
+            tools=[PDFSearchTool("solutions.pdf"), SerperDevTool(), ScrapeWebsiteTool()],
         )
 
     @task
