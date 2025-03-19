@@ -1,14 +1,14 @@
 ---
 discovery_task:
-  description: Using structured inputs including {website} and the pre-processed solutions.pdf,
-    DiscoveryAgent will scrape the website using ScrapeWebsiteTool and extract key
-    solution details from solutions.pdf using PDFSearchTool. The agent will analyze
-    the aggregated data to identify current challenges the company faces and note
-    any missing services that Buckle Consult can offer.
+
+  description: Utilizing comprehensive inputs such as {website} and the pre-processed solutions.pdf,
+    DiscoveryAgent employs the ScrapeWebsiteTool to gather crucial solution details from the website and extracts relevant data from solutions.pdf using PDFSearchTool. 
+    The agent thoroughly analyzes this combined data to uncover the company's current challenges and detect any unaddressed services that Buckle Consult can potentially offer.
   expected_output: A detailed report highlighting key challenges and service gaps
     observed from {website}, along with critical solution details from solutions.pdf.
   async_execution: false
   agent: DiscoveryAgent
+
 analysis_task:
   description: Based on the context provided by discovery_task, AnalysisAgent will
     further evaluate the data in relation to inputs such as {CRM_or_ERP} and {industry},
